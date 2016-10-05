@@ -3,14 +3,14 @@ import thunk from 'redux-thunk';
 import { hashHistory } from 'react-router';
 import { routerMiddleware, push } from 'react-router-redux';
 import createLogger from 'redux-logger';
-import rootReducer from '../reducers';
+import rootReducer from './rootreducer';
 
-import * as counterActions from '../actions/counter';
+// import * as counterActions from '../../modules/counter';
 
-const actionCreators = {
-  ...counterActions,
-  push,
-};
+// const actionCreators = {
+//   ...counterActions,
+//   push,
+// };
 
 const logger = createLogger({
   level: 'info',
@@ -21,9 +21,10 @@ const router = routerMiddleware(hashHistory);
 
 const enhancer = compose(
   applyMiddleware(thunk, router, logger),
-  window.devToolsExtension ?
-    window.devToolsExtension({ actionCreators }) :
-    noop => noop
+  window.devToolsExtension ? window.devToolsExtension() : noop => noop
+  // window.devToolsExtension ?
+  //   window.devToolsExtension({ actionCreators }) :
+  //   noop => noop
 );
 
 export default function configureStore(initialState) {
@@ -34,8 +35,8 @@ export default function configureStore(initialState) {
   }
 
   if (module.hot) {
-    module.hot.accept('../reducers', () =>
-      store.replaceReducer(require('../reducers')) // eslint-disable-line global-require
+    module.hot.accept('./rootreducer', () =>
+      store.replaceReducer(require('./rootreducer')) // eslint-disable-line global-require
     );
   }
 

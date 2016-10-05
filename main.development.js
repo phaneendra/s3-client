@@ -27,13 +27,19 @@ const installExtensions = async () => {
     for (const name of extensions) {
       try {
         await installer.default(installer[name], forceDownload);
-      } catch (e) {} // eslint-disable-line
+      } catch (e) {
+        console.log('An error occurred: ', e)
+      } // eslint-disable-line
     }
   }
 };
 
 app.on('ready', async () => {
-  await installExtensions();
+  // await installExtensions();
+
+  // Temporary workaround for extention installation from local file.
+  BrowserWindow.addDevToolsExtension('tools/react-devtools/0.15.4_0');
+  BrowserWindow.addDevToolsExtension('tools/redux-devtools/2.7.0_0');
 
   mainWindow = new BrowserWindow({
     show: false,
