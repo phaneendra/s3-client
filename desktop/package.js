@@ -7,12 +7,12 @@
 require('babel-polyfill');
 const os = require('os');
 const webpack = require('webpack');
-const electronCfg = require('./webpack.config.electron');
-const cfg = require('./webpack.config.production');
+const electronCfg = require('../tools/webpack/webpack.config.electron');
+const cfg = require('../tools/webpack/webpack.config.production');
 const packager = require('electron-packager');
 const del = require('del');
 const exec = require('child_process').exec;
-const pkg = require('./package.json');
+const pkg = require('../package.json');
 
 /**
  * First two values are node path and current script path
@@ -24,7 +24,7 @@ const argv = require('minimist')(process.argv.slice(2));
  * Do not package node modules from 'devDependencies'
  * and 'dependencies' that are set as external
  */
-const toNodePath = name => `/node_modules/${name}($|/)`;
+const toNodePath = name => `../node_modules/${name}($|/)`;
 const devDeps = Object
   .keys(pkg.devDependencies)
   .map(toNodePath);
@@ -47,7 +47,8 @@ const DEFAULT_OPTS = {
   ignore: [
     '^/test($|/)',
     '^/release($|/)',
-    '^/main.development.js'
+    '^/desktop($|/)',
+    '^/tools($|/)'
   ]
   .concat(devDeps)
   .concat(depsExternal)

@@ -1,8 +1,7 @@
-# electron-react-boilerplate
+# S3 Destop Client
 
 [![NPM version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
-[![Appveyor Build Status][appveyor-image]][appveyor-url]
 [![Dependency Status][david_img]][david_site]
 
 ![](./erb-logo.png)
@@ -20,7 +19,7 @@
 First, clone the repo via git:
 
 ```bash
-git clone https://github.com/chentsulin/electron-react-boilerplate.git your-project-name
+git clone https://github.com/phaneendra/s3-client.git your-project-name
 ```
 
 And then install dependencies.
@@ -99,7 +98,7 @@ Make sure to list bootstrap in externals in `webpack.config.base.js` or the app 
 ```js
 externals: ['bootstrap']
 ```
- 
+
 
 
 ## CSS Modules
@@ -132,7 +131,7 @@ $ npm run package -- --[option]
 
 #### Options
 
-- --name, -n: Application name (default: ElectronReact)
+- --name, -n: Application name (default: s3-client)
 - --version, -v: Electron version (default: latest version)
 - --asar, -a: [asar](https://github.com/atom/asar) support (default: false)
 - --icon, -i: Application icon
@@ -157,14 +156,14 @@ Please checkout [Building windows apps from non-windows platforms](https://githu
 
 ## Dispatching redux actions from main process
 
-see discusses in [#118](https://github.com/chentsulin/electron-react-boilerplate/issues/118) and [#108](https://github.com/chentsulin/electron-react-boilerplate/issues/108)
+see discusses in [#118](https://github.com/phaneendra/s3-client/issues/118) and [#108](https://github.com/phaneendra/s3-client/issues/108)
 
 ## How to keep the boilerplate updated
 
 If your application is a fork from this repo, you can add this repo to another git remote:
 
 ```sh
-git remote add upstream https://github.com/chentsulin/electron-react-boilerplate.git
+git remote add upstream https://github.com/phaneendra/s3-client.git
 ```
 
 Then, use git to merge some latest commits:
@@ -180,19 +179,15 @@ If you want to have native-like User Interface (OS X El Capitan and Windows 10),
 
 ## Maintainers
 
-- [C. T. Lin](https://github.com/chentsulin)
-- [Jhen-Jie Hong](https://github.com/jhen0409)
-- [Amila Welihinda](https://github.com/amilajack)
+- [phaneendra](https://github.com/phaneendra)
 
 
 ## License
-MIT © [C. T. Lin](https://github.com/chentsulin)
+MIT © [phaneendra](https://github.com/phaneendra)
 
-[npm-image]: https://img.shields.io/npm/v/electron-react-boilerplate.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/electron-react-boilerplate
-[travis-image]: https://travis-ci.org/chentsulin/electron-react-boilerplate.svg?branch=master
-[travis-url]: https://travis-ci.org/chentsulin/electron-react-boilerplate
-[appveyor-image]: https://ci.appveyor.com/api/projects/status/github/chentsulin/electron-react-boilerplate?svg=true
-[appveyor-url]: https://ci.appveyor.com/project/chentsulin/electron-react-boilerplate/branch/master
-[david_img]: https://img.shields.io/david/chentsulin/electron-react-boilerplate.svg
-[david_site]: https://david-dm.org/chentsulin/electron-react-boilerplate
+[npm-image]: https://img.shields.io/npm/v/s3-client.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/s3-client
+[travis-image]: https://travis-ci.org/phaneendra/s3-client.svg?branch=master
+[travis-url]: https://travis-ci.org/phaneendra/s3-client
+[david_img]: https://img.shields.io/david/phaneendra/s3-client.svg
+[david_site]: https://david-dm.org/phaneendra/s3-client

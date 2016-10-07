@@ -5,6 +5,8 @@
 import path from 'path';
 import validate from 'webpack-validator';
 
+const projectroot = path.join(__dirname, '../../');
+
 export default validate({
   module: {
     loaders: [{
@@ -18,7 +20,7 @@ export default validate({
   },
 
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(projectroot, 'dist'),
     filename: 'bundle.js',
 
     // https://github.com/webpack/webpack/issues/1114

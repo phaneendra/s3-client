@@ -7,17 +7,20 @@ import validate from 'webpack-validator';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
+import path from 'path';
+
+const projectroot = path.join(__dirname, '../../');
 
 const config = validate(merge(baseConfig, {
   devtool: 'cheap-module-source-map',
 
   entry: [
     'babel-polyfill',
-    './app/index'
+    projectroot + './app/index'
   ],
 
   output: {
-    publicPath: '../dist/'
+    publicPath: projectroot + './dist/'
   },
 
   module: {

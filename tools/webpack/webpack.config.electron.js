@@ -6,15 +6,18 @@ import webpack from 'webpack';
 import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
+import path from 'path';
+
+const projectroot = path.join(__dirname, '../../');
 
 export default validate(merge(baseConfig, {
   devtool: 'source-map',
 
-  entry: ['babel-polyfill', './main.development'],
+  entry: ['babel-polyfill', projectroot + './desktop/main.development'],
 
   // 'main.js' in root
   output: {
-    path: __dirname,
+    path: projectroot,
     filename: './main.js'
   },
 

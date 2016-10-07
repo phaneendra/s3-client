@@ -1,14 +1,16 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
+import path from 'path';
 
 let menu;
 let template;
 let mainWindow = null;
 
 
-if (process.env.NODE_ENV === 'development') {
-  require('electron-debug')(); // eslint-disable-line global-require
-}
+// if (process.env.NODE_ENV === 'development') {
+  require('electron-debug')({enabled: true, showDevTools: true}); // eslint-disable-line global-require
+// }
 
+const projectroot = path.join(__dirname, '../');
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
@@ -17,29 +19,29 @@ app.on('window-all-closed', () => {
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
-    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+    // const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
 
-    const extensions = [
-      'REACT_DEVELOPER_TOOLS',
-      'REDUX_DEVTOOLS'
-    ];
-    const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
-    for (const name of extensions) {
-      try {
-        await installer.default(installer[name], forceDownload);
-      } catch (e) {
-        console.log('An error occurred: ', e)
-      } // eslint-disable-line
-    }
+    // const extensions = [
+    //   'REACT_DEVELOPER_TOOLS',
+    //   'REDUX_DEVTOOLS'
+    // ];
+    // const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
+    // for (const name of extensions) {
+    //   try {
+    //     await installer.default(installer[name], forceDownload);
+    //   } catch (e) {
+    //     console.log('An error occurred: ', e)
+    //   } // eslint-disable-line
+    // }
+
+    // Temporary workaround for extention installation from local file.
+    BrowserWindow.addDevToolsExtension('tools/react-devtools/0.15.4_0');
+    BrowserWindow.addDevToolsExtension('tools/redux-devtools/2.7.0_0');
   }
 };
 
 app.on('ready', async () => {
   // await installExtensions();
-
-  // Temporary workaround for extention installation from local file.
-  BrowserWindow.addDevToolsExtension('tools/react-devtools/0.15.4_0');
-  BrowserWindow.addDevToolsExtension('tools/redux-devtools/2.7.0_0');
 
   mainWindow = new BrowserWindow({
     show: false,
@@ -47,7 +49,7 @@ app.on('ready', async () => {
     height: 728
   });
 
-  mainWindow.loadURL(`file://${__dirname}/app/app.html`);
+  mainWindow.loadURL(`file://${projectroot}/app/app.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.show();
