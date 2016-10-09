@@ -1,0 +1,24 @@
+@import "~react-toolbox/lib/app_bar/config";
+
+$purple: #800080;
+$title-font-size: 1.8 * $unit;
+
+.appBar {
+  background-color: $purple;
+  > .title {
+      font-size: $title-font-size;
+      font-weight: $font-weight-bold;
+      position: relative;
+    }
+}
+
+.navigation {
+  flex-grow: 1;
+  text-align: right;
+  > ul {
+    list-style: none;
+    > li {
+      display: inline-block;
+    }
+  }
+}
