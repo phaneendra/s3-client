@@ -8,6 +8,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 
 const projectroot = path.join(__dirname, '../../');
 
@@ -24,26 +25,21 @@ const config = validate(merge(baseConfig, {
   },
 
   module: {
-    loaders: [
+    loaders: [{
       // Extract all .global.css to style.css as is
-      {
-        test: /\.global\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader'
-        )
-      },
-
+      test: /\.global\.css$/,
+      loader: ExtractTextPlugin.extract(
+        'style-loader',
+        'css-loader'
+      )
+    }, {
       // Pipe other styles through css modules and apend to style.css
-      {
-        test: /^((?!\.global).)*\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-        )
-      }
-    ]
+      test: /(^((?!\.global).)*\.css|\.scss|)$/,
+      loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap')
+    }]
   },
+
+  postcss: [autoprefixer],
 
   plugins: [
     // https://webpack.github.io/docs/list-of-plugins.html#occurrenceorderplugin

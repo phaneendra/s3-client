@@ -5,15 +5,15 @@
  */
 
 import webpack from 'webpack';
-import validate from 'webpack-validator';
 import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import path from 'path';
+import autoprefixer from 'autoprefixer';
 
 const port = process.env.PORT || 3000;
 const projectroot = path.join(__dirname, '../../');
 
-export default validate(merge(baseConfig, {
+export default merge(baseConfig, {
   debug: true,
 
   devtool: 'cheap-module-eval-source-map',
@@ -29,23 +29,44 @@ export default validate(merge(baseConfig, {
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.global\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?sourceMap'
-        ]
-      },
-
-      {
-        test: /^((?!\.global).)*\.css$/,
-        loaders: [
-          'style-loader',
-          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
-        ]
-      }
+    loaders: [{
+      // Extract all .global.css to style.css as is
+      test: /\.global\.css$/,
+      loaders: [
+        'style-loader',
+        'css-loader'
+      ]
+    }, {
+      // Pipe other styles through css modules and apend to style.css
+      test: /(^((?!\.global).)*\.css)$/,
+      loaders: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]'
+      ]
+    }, {
+      test: /(\.scss)$/,
+      // ExtractTextPlugin does not work with HMR, but it will be included in webpack prod config
+      // loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
+      // loader: 'style!css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap'
+      loaders: [
+        'style-loader',
+        'css-loader?modules&sourceMap&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+        'postcss-loader',
+        'sass-loader?sourceMap'
+      ]
+    }, // Font Definitions
+    { test: /\.woff(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+    { test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff' },
+    { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
+    { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file' },
+    { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' }
     ]
+  },
+
+  postcss: [autoprefixer],
+
+  sassLoader: {
+    data: '@import "' + path.resolve(projectroot, 'app/theme/_config.scss') + '";'
   },
 
   plugins: [
@@ -64,4 +85,4 @@ export default validate(merge(baseConfig, {
 
   // https://github.com/chentsulin/webpack-target-electron-renderer#how-this-module-works
   target: 'electron-renderer'
-}));
+});

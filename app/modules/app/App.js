@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import Header from './components/Header';
+import style from './app.scss';
 
 export default class App extends Component {
   static propTypes = {
@@ -8,7 +10,11 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        {this.props.children}
+        <Header/>
+
+        <section className={style.content}>
+          {this.props.children}
+        </section>
       </div>
     );
   }

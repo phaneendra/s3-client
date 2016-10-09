@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 
 const wdm = webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath,
+  hot: true,
   stats: {
     colors: true
   }
@@ -24,7 +25,10 @@ const wdm = webpackDevMiddleware(compiler, {
 
 app.use(wdm);
 
-app.use(webpackHotMiddleware(compiler));
+app.use(webpackHotMiddleware(compiler, {
+  log: console.log,
+  heartbeat: 10 * 1000
+}));
 
 const server = app.listen(PORT, 'localhost', err => {
   if (err) {

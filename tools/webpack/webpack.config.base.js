@@ -8,9 +8,10 @@ import validate from 'webpack-validator';
 const projectroot = path.join(__dirname, '../../');
 
 export default validate({
+  context: projectroot,
   module: {
     loaders: [{
-      test: /\.jsx?$/,
+      test: /(\.js|\.jsx)$/,
       loaders: ['babel-loader'],
       exclude: /node_modules/
     }, {
@@ -29,7 +30,11 @@ export default validate({
 
   // https://webpack.github.io/docs/configuration.html#resolve
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json'],
+    extensions: ['', '.js', '.scss', '.css', '.jsx', '.json'],
+    modulesDirectories: [
+      'node_modules',
+      path.resolve(projectroot, './node_modules')
+    ],
     packageMains: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
 
