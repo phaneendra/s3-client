@@ -3,7 +3,7 @@ export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
 export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
 
 // Reducers
-export default function counter(state = 0, action) {
+export default function counter (state = 0, action) {
   switch (action.type) {
     case INCREMENT_COUNTER:
       return state + 1;
@@ -15,19 +15,19 @@ export default function counter(state = 0, action) {
 }
 
 // Action Creators
-export function increment() {
+export function increment () {
   return {
     type: INCREMENT_COUNTER
   };
 }
 
-export function decrement() {
+export function decrement () {
   return {
     type: DECREMENT_COUNTER
   };
 }
 
-export function incrementIfOdd() {
+export function incrementIfOdd () {
   return (dispatch, getState) => {
     const { counter } = getState();
 
@@ -39,7 +39,7 @@ export function incrementIfOdd() {
   };
 }
 
-export function incrementAsync(delay = 1000) {
+export function incrementAsync (delay = 1000) {
   return dispatch => {
     setTimeout(() => {
       dispatch(increment());

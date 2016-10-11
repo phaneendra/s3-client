@@ -65,9 +65,10 @@ export default merge(baseConfig, {
 
   postcss: [autoprefixer],
 
-  sassLoader: {
-    data: '@import "' + path.resolve(projectroot, 'app/theme/_config.scss') + '";'
-  },
+  // sassLoader: {
+  //   includePaths: [path.resolve(projectroot, 'app/theme')],
+  //   data: '@import "./_config.scss";'
+  // },
 
   plugins: [
     // https://webpack.github.io/docs/hot-module-replacement-with-webpack.html

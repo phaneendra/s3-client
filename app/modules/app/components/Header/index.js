@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import AppBar from 'react-toolbox/lib/app_bar';
-import {IconMenu, MenuItem, MenuDivider } from 'react-toolbox/lib/menu';
+import { IconMenu, MenuItem, MenuDivider } from 'react-toolbox/lib/menu';
 import style from './style';
 
 const MainAppBar = () => (
-  <AppBar theme={style} >
-    <h3>
+  <AppBar theme={style} leftIcon='menu'>
+    <h3 className={style.title}>
       <Link to='/'> S3 Explorer</Link>
     </h3>
 

@@ -36,15 +36,20 @@ const installExtensions = async () => {
         console.log('An error occurred: ', e)
       } // eslint-disable-line
     }
+  }
+};
 
+const installExtensionLocal = async () => {
+  if (process.env.NODE_ENV === 'development') {
     // Temporary workaround for extention installation from local file.
-    // BrowserWindow.addDevToolsExtension('tools/react-devtools/0.15.4_0');
-    // BrowserWindow.addDevToolsExtension('tools/redux-devtools/2.7.0_0');
+    BrowserWindow.addDevToolsExtension('tools/react-devtools/0.15.4_0');
+    BrowserWindow.addDevToolsExtension('tools/redux-devtools/2.7.0_0');
   }
 };
 
 app.on('ready', async () => {
-  await installExtensions();
+  // await installExtensions();
+  await installExtensionLocal();
 
   mainWindow = new BrowserWindow({
     show: false,
